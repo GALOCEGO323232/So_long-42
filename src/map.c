@@ -7,20 +7,21 @@ static char *read_file(char *file)
     char *tmp;
     char *map_str;
 
-    fd = open(file, O_RDONLY)
+    fd = open(file, O_RDONLY);
     if (fd < 0)
-        error_exit("ERRO: NÂO FOI POSSOVEL ABRIR O MAPA");
+        error_exit("ERRO: NAO FOI POSSIVEL ABRIR O MAPA");
     map_str = ft_strdup("");
+    line = get_next_line(fd);
     while (line)
     {
         tmp = ft_strjoin(map_str, line);
         free(map_str);
         free(line);
         map_str = tmp;
-        get_next_line(fd);
+        line = get_next_line(fd);
     }
     close(fd);
-    return(map_str);
+    return (map_str);
 }
 
 void    read_map(t_game *game, char *file)
@@ -29,13 +30,13 @@ void    read_map(t_game *game, char *file)
     int i;
 
     map_str = read_file(file);
-    game->map = ft_split(map_str, '\n')
+    game->map = ft_split(map_str, '\n');
     free(map_str);
     if (!game->map || !game->map[0])
-        error_exit("ERRO: MAPA INVÁLIDO")
+        error_exit("ERRO: MAPA INVALIDO");
     i = 0;
     while (game->map[i])
         i++;
-    game->height = i
+    game->height = i;
     game->width = ft_strlen(game->map[0]);
 }

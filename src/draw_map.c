@@ -15,7 +15,7 @@ void    draw_map(t_game *game)
             if (game->map[y][x] == '1')
                 img = game->img.wall;
             else if (y == game->y && x == game->x)
-                img = game->img.player_down1;
+                img = dir_player(game);
             else
                 img = game->img.empty;
             mlx_put_image_to_window(game->mlx, game->win, img, x * TILE, y * TILE);
