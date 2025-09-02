@@ -10,6 +10,11 @@
 # include <stdio.h>
 
 # define TILE 60 // tamanho de cada bloco do mapa
+# define IMG_PXL 60
+# define DIR_UP     0
+# define DIR_DOWN   1
+# define DIR_LEFT   2
+# define DIR_RIGHT  3
 
 // --- Struct das imagens/sprites ---
 typedef struct s_img
@@ -44,6 +49,8 @@ typedef struct s_game
 	// Player / posições
 	int		x;       // coluna do player
 	int		y;       // linha do player
+	int		player_dir; //posiçao do jogador no mapa
+	int		player_frame;
 
 	// Contadores
 	int		moves;              // número de movimentos do player
@@ -51,16 +58,19 @@ typedef struct s_game
 	int		collected;          // coletáveis já coletados
 	int		e;                  // total de saídas no mapa
 	int		p;                  // total de players no mapa
-
-	// Imagens
 	t_img	img; // sprites do jogo
 } t_game;
 
-// --- Protótipos das funções ---
 void	read_map(t_game *game, char *file); // lê o mapa do arquivo
 void	draw_map(t_game *game);            // desenha o mapa e o player
 int		close_game(t_game *game);          // fecha o jogo
 void	error_exit(char *msg);             // imprime mensagem de erro e sai
+int handle_input(int key, t_game *game);
+void    *dir_player(t_game *game);
+void	move_up(t_game *game);//Movimentos do player
+void	move_down(t_game *game);//Movimentos do player
+void	move_left(t_game *game);//Movimentos do player
+void	move_right(t_game *game); //Movimentos do player
+void	file_to_image(t_map *map); //Para carregar as imagens de plyaer e outras
 
 #endif
-
