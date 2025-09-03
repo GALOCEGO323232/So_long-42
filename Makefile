@@ -2,8 +2,7 @@ NAME = so_long
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 MLX = -lmlx -framework OpenGL -framework AppKit
-
-SRCS = so_long.c map.c draw_map.c sprites.c move.c handle.c events.c utils.c file_to_image.c
+SRCS = src/so_long.c src/map.c src/draw_map.c src/sprites.c src/player_moves.c src/handle.c src/events.c src/utils.c src/file_to_image.c
 OBJS = $(SRCS:.c=.o)
 
 LIBFT_DIR = ./libft
