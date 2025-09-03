@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../inc/so_long.h"
 
 static void	init_game(t_game *game, char *map_file)
 {

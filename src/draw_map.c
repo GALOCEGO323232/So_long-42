@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../inc/so_long.h"
 
 void    draw_map(t_game *game)
 {

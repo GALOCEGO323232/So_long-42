@@ -71,6 +71,6 @@ void	move_up(t_game *game);//Movimentos do player
 void	move_down(t_game *game);//Movimentos do player
 void	move_left(t_game *game);//Movimentos do player
 void	move_right(t_game *game); //Movimentos do player
-void	file_to_image(t_map *map); //Para carregar as imagens de plyaer e outras
+void	file_to_image(t_game *map); //Para carregar as imagens de plyaer e outras
 
 #endif

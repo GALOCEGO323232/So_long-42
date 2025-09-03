@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../inc/so_long.h"
 
 int     close_game(t_game *game)
 {
@@ -12,7 +12,7 @@ int     close_game(t_game *game)
     }
     free(game->map);
     game->map = NULL;
-    mlx_destroy_window(game->mlx, game->win)
+    mlx_destroy_window(game->mlx, game->win);
     exit(0);
     return(0);
 }

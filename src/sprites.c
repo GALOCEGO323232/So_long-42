@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../inc/so_long.h"
 
 static void *dir_player_up(t_game *game)
 {

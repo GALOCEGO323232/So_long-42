@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../inc/so_long.h"
 
 static void	file_to_image_player(t_game *game)
 {
