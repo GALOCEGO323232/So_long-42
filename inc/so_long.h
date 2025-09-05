@@ -22,7 +22,8 @@ typedef struct s_img
 	void	*empty;          // chão vazio
 	void	*collectible;    // coletável
 	void	*wall;           // parede
-	void	*exit;           // saída
+	void	*exit;			//saida aberta
+	void	*exit_closed;        // saída e fechada
 	void	*player_left1;   // player esquerda quadro 1
 	void	*player_right1;  // player direita quadro 1
 	void	*player_up1;     // player cima quadro 1
@@ -65,12 +66,13 @@ void	read_map(t_game *game, char *file); // lê o mapa do arquivo
 void	draw_map(t_game *game);            // desenha o mapa e o player
 int		close_game(t_game *game);          // fecha o jogo
 void	error_exit(char *msg);             // imprime mensagem de erro e sai
-int handle_input(int key, t_game *game);
+int 	handle_input(int key, t_game *game);
 void    *dir_player(t_game *game);
-void	move_up(t_game *game);//Movimentos do player
-void	move_down(t_game *game);//Movimentos do player
-void	move_left(t_game *game);//Movimentos do player
-void	move_right(t_game *game); //Movimentos do player
-void	file_to_image(t_game *map); //Para carregar as imagens de plyaer e outras
-
+int		move_up(t_game *game);//Movimentos do player
+int		move_down(t_game *game);//Movimentos do player
+int		move_left(t_game *game);//Movimentos do player
+int 	move_right(t_game *game); //Movimentos do player
+void	file_to_image(t_game *game); //Para carregar as imagens de plyaer e outras
+void	init_player_pos(t_game *game); //GARANTE A POSIÇÂO DO PLAYER MO MAPA
+void	update_position(t_game *game, int new_x, int new_y);
 #endif
