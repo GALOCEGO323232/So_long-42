@@ -29,9 +29,11 @@ void	file_to_image(t_game *game)
 
 	a = IMG_PXL;
 	game->img.empty = mlx_xpm_file_to_image(game->mlx,
-			"assets/tiles/floor_60.xpm", &a, &a);
+			"assets/tiles/floor.xpm", &a, &a);
 	game->img.wall = mlx_xpm_file_to_image(game->mlx,
-			"assets/tiles/wall_60.xpm", &a, &a);
+			"assets/tiles/wall.xpm", &a, &a);
+	game->img.exit_closed = mlx_xpm_file_to_image(game->mlx,
+			"assets/images/9S_exit1.xpm", &a, &a);
 	game->img.exit = mlx_xpm_file_to_image(game->mlx,
 			"assets/images/9S_exit.xpm", &a, &a);
 	game->img.collectible = mlx_xpm_file_to_image(game->mlx,

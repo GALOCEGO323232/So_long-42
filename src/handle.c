@@ -10,20 +10,24 @@ static void	switch_frame(t_game *game)
 
 int	handle_input(int key, t_game *game)
 {
+	int	moved = 0;
+
 	if (key == 119) // W
-		move_up(game);
+		moved = move_up(game);
 	else if (key == 115) // S
-		move_down(game);
+		moved = move_down(game);
 	else if (key == 97) // A
-		move_left(game);
+		moved = move_left(game);
 	else if (key == 100) // D
-		move_right(game);
-	else if (key == 65307) // ESC
+		moved = move_right(game);
+	else if (key == 65307 || key == 120) // ESC
 		close_game(game);
 
-	if (key == 119 || key == 115 || key == 97 || key == 100)
+	if (moved)
 		switch_frame(game);
 
 	return (0);
 }
+
+
 
