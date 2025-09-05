@@ -23,5 +23,9 @@
 # endif
 
 char	*get_next_line(int fd);
+char	*ft_gnl_strchr(const char *s, int c);
+char	*ft_gnl_strdup(const char *s);
+char	*ft_gnl_strjoin(char *s1, char *s2);
+size_t	ft_gnl_strlen(const char *s);
 
 #endif
