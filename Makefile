@@ -20,7 +20,6 @@ LIB_DIR			= lib
 LIBFT_DIR		= $(LIB_DIR)/libft
 MLX_DIR			= $(LIB_DIR)/minilibx-linux
 LIBFT			= $(LIBFT_DIR)/libft.a
-MLX				= $(MLX_DIR)/libmlx.a
 MLX_FLAGS		= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 INCLUDES		= -I./ -I$(LIBFT_DIR) -I$(MLX_DIR)
 
@@ -84,7 +83,7 @@ $(BONUS_DIR)/%.o: $(BONUS_DIR)/%.c
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
-	$(MAKE) -C $(MLX_DIR) clean || true
+	$(MAKE) -C $(MLX_DIR) clean
 	rm -f $(OBJS) $(BONUS_OBJS)
 	@echo "\033[0;33mObjetos removidos!\033[0m"
 
