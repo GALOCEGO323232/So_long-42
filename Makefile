@@ -14,12 +14,14 @@ NAME			= so_long
 BONUS_NAME		= so_long_bonus
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
+
 SRC_DIR			= src
 BONUS_DIR		= bonus/src
-LIB_DIR			= lib
-LIBFT_DIR		= $(LIB_DIR)/libft
-MLX_DIR			= $(LIB_DIR)/minilibx-linux
+LIBFT_DIR		= lib/libft
+MLX_DIR			= minilibx-linux
+
 LIBFT			= $(LIBFT_DIR)/libft.a
+MLX_LIB			= $(MLX_DIR)/libmlx.a
 MLX_FLAGS		= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 INCLUDES		= -I./ -I$(LIBFT_DIR) -I$(MLX_DIR)
 
@@ -55,40 +57,39 @@ BONUS_SRCS = $(BONUS_DIR)/so_long_bonus.c \
 OBJS		= $(SRCS:.c=.o)
 BONUS_OBJS	= $(BONUS_SRCS:.c=.o)
 
-all: $(LIBFT) $(MLX) $(NAME)
+all: $(LIBFT) $(MLX_LIB) $(NAME)
 
-bonus: $(LIBFT) $(MLX) $(BONUS_NAME)
+bonus: $(LIBFT) $(MLX_LIB) $(BONUS_NAME)
 
 $(LIBFT):
 	@echo "\033[0;32mCompilando libft...\033[0m"
-	$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) -C $(LIBFT_DIR)
 
-$(MLX):
+$(MLX_LIB):
 	@echo "\033[0;32mCompilando MiniLibX...\033[0m"
-	$(MAKE) -C $(MLX_DIR)
+	@$(MAKE) -C $(MLX_DIR)
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) $(INCLUDES) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT) $(MLX_LIB)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) $(INCLUDES) -o $(NAME)
 	@echo "\033[1;32m✓ Compilado com sucesso: $(NAME)\033[0m"
 
-$(BONUS_NAME): $(BONUS_OBJS) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) $(MLX_FLAGS) $(INCLUDES) -o $(BONUS_NAME)
+$(BONUS_NAME): $(BONUS_OBJS) $(LIBFT) $(MLX_LIB)
+	@$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) $(MLX_FLAGS) $(INCLUDES) -o $(BONUS_NAME)
 	@echo "\033[1;36m✓ Compilado com sucesso: $(BONUS_NAME)\033[0m"
 
 $(SRC_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(BONUS_DIR)/%.o: $(BONUS_DIR)/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	$(MAKE) -C $(LIBFT_DIR) clean
-	$(MAKE) -C $(MLX_DIR) clean
+	@$(MAKE) -C $(LIBFT_DIR) clean
 	rm -f $(OBJS) $(BONUS_OBJS)
 	@echo "\033[0;33mObjetos removidos!\033[0m"
 
 fclean: clean
-	$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 	rm -f $(NAME) $(BONUS_NAME)
 	@echo "\033[0;31mTudo removido!\033[0m"
 
