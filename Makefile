@@ -10,17 +10,19 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long
-BONUS_NAME = so_long_bonus
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-MLX = -Lminilibx-linux -lmlx -lXext -lX11 -lm -lz
-LIBFT_DIR = ./libft
-LIBFT = $(LIBFT_DIR)/libft.a
-INCLUDES = -I./ -I$(LIBFT_DIR)
-
-SRC_DIR = src
-BONUS_DIR = bonus/src
+NAME			= so_long
+BONUS_NAME		= so_long_bonus
+CC				= gcc
+CFLAGS			= -Wall -Wextra -Werror
+SRC_DIR			= src
+BONUS_DIR		= bonus/src
+LIB_DIR			= lib
+LIBFT_DIR		= $(LIB_DIR)/libft
+MLX_DIR			= $(LIB_DIR)/minilibx-linux
+LIBFT			= $(LIBFT_DIR)/libft.a
+MLX				= $(MLX_DIR)/libmlx.a
+MLX_FLAGS		= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
+INCLUDES		= -I./ -I$(LIBFT_DIR) -I$(MLX_DIR)
 
 SRCS = $(SRC_DIR)/so_long.c \
        $(SRC_DIR)/movements.c \
@@ -51,22 +53,28 @@ BONUS_SRCS = $(BONUS_DIR)/so_long_bonus.c \
              $(BONUS_DIR)/valid_map_bonus.c \
              $(BONUS_DIR)/valid_path_bonus.c
 
-OBJS = $(SRCS:.c=.o)
-BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+OBJS		= $(SRCS:.c=.o)
+BONUS_OBJS	= $(BONUS_SRCS:.c=.o)
 
-all: $(LIBFT) $(NAME)
+all: $(LIBFT) $(MLX) $(NAME)
 
-bonus: $(LIBFT) $(BONUS_NAME)
+bonus: $(LIBFT) $(MLX) $(BONUS_NAME)
 
 $(LIBFT):
-	@echo "Compiling libft..."
+	@echo "\033[0;32mCompilando libft...\033[0m"
 	$(MAKE) -C $(LIBFT_DIR)
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) $(INCLUDES) -o $(NAME)
+$(MLX):
+	@echo "\033[0;32mCompilando MiniLibX...\033[0m"
+	$(MAKE) -C $(MLX_DIR)
 
-$(BONUS_NAME): $(BONUS_OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) $(MLX) $(INCLUDES) -o $(BONUS_NAME)
+$(NAME): $(OBJS) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) $(INCLUDES) -o $(NAME)
+	@echo "\033[1;32m✓ Compilado com sucesso: $(NAME)\033[0m"
+
+$(BONUS_NAME): $(BONUS_OBJS) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) $(MLX_FLAGS) $(INCLUDES) -o $(BONUS_NAME)
+	@echo "\033[1;36m✓ Compilado com sucesso: $(BONUS_NAME)\033[0m"
 
 $(SRC_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
@@ -76,10 +84,15 @@ $(BONUS_DIR)/%.o: $(BONUS_DIR)/%.c
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
+	$(MAKE) -C $(MLX_DIR) clean || true
 	rm -f $(OBJS) $(BONUS_OBJS)
+	@echo "\033[0;33mObjetos removidos!\033[0m"
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
 	rm -f $(NAME) $(BONUS_NAME)
+	@echo "\033[0;31mTudo removido!\033[0m"
 
 re: fclean all
+
+.PHONY: all bonus clean fclean re
