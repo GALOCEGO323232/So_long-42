@@ -68,6 +68,6 @@ void	init_enemy_pos(t_game *game)
 		return ;
 	game->enemies = malloc(sizeof(t_enemy) * game->enemy_count);
 	if (!game->enemies)
-		error_exit("Erro: falha ao alocar inimigos");
+		error_exit("Error: failed to allocate enemies");
 	fill_enemies(game);
 }
